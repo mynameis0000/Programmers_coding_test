@@ -1,20 +1,21 @@
 import java.util.*;
 
 class Solution {public String solution(String[] participant, String[] completion) {
-        String answer = "";
-        HashMap<String, Integer> name_wiht_num1 = new HashMap<>();
-        HashMap<String, Integer> name_wiht_num2 = new HashMap<>();
-
-        //중복 거르기
+        //이름, 등장횟수, 중복 여부를 확인해야 함 - hashmap
+        HashMap<String, Integer> map = new HashMap<>();
+    
+        //참가자 카운트
         for(String par : participant){
-            name_wiht_num1.put(par, name_wiht_num1.getOrDefault(par,0)+1);}
-        for(String com : completion){
-            name_wiht_num2.put(com, name_wiht_num2.getOrDefault(com,0)+1);}
-
-        for(String par : name_wiht_num1.keySet()){
-            if(!Objects.equals(name_wiht_num1.get(par), name_wiht_num2.get(par))) 
-                answer = par;
+            map.put(par, map.getOrDefault(par,0)+1);
         }
-        return answer;
+        //완주자 제거
+        for(String com : completion){
+            map.put(com, map.get(com)-1);
+        }
+        //0이 아닌 사람(-1 이하 혹은 1이상) 찾기
+        for(String key: map.keySet()){
+            if(map.get(key)!=0) return key;
+        }
+        return "";
     }
 } 
