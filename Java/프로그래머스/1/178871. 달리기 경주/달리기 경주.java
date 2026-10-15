@@ -1,6 +1,5 @@
-//호출한 이름의 인덱스를 -1하기.
-
 import java.util.*;
+
 class Solution {
     public String[] solution(String[] players, String[] callings) {
         
@@ -17,9 +16,6 @@ class Solution {
             players[back_index] = front_string;
             rankMap.put(player, back_index-1);
             rankMap.put(front_string, back_index);
-            
-            back_index=0;
-            
         }
         return players;
     }
