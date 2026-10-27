@@ -10,13 +10,12 @@ class Solution {
     
     public class Node{
         int n;
-        int dist = -1;
+        int  dist = -1;
         List<Node> links = new ArrayList<>();
-        Node(int n){
+        public Node(int n){
             this.n = n;
         }
     }
-    
     
     public int solution(int n, int[][] edge) {
         int answer = 0;
@@ -25,35 +24,36 @@ class Solution {
         for(int i=0; i<=n; i++){
             list.add(new Node(i));
         }
+        
         //간선 연결
-        for(int[] e: edge){
+        for(int[] e : edge){
             Node nodeA = list.get(e[0]);
             Node nodeB = list.get(e[1]);
-
-            nodeA.links.add(nodeB); // A의 이웃에 B 추가
+            nodeA.links.add(nodeB);
             nodeB.links.add(nodeA);
         }
         
+        //BFS
         Queue<Node> queue = new LinkedList<>();
-        Node start = list.get(1); 
+        Node start = list.get(1);
         start.dist = 0;
         queue.offer(start);
         
         while(!queue.isEmpty()){
-            Node current = queue.poll(); 
+            Node current = queue.poll();
             for(Node next : current.links){
                 if(next.dist == -1){
-                    next.dist = current.dist + 1;
+                    next.dist = current.dist+1;
                     queue.offer(next);
                 }
             }
         }
-            
+        
         int maxDist = 0;
-        for(int i=1; i<=n; i++){
+        for(int i=1; i<n; i++){
             maxDist = Math.max(maxDist, list.get(i).dist);
         }
-            
+        
         for(int i=1; i<=n; i++){
             if(list.get(i).dist == maxDist){
                 answer++;
