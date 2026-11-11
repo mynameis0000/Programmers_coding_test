@@ -9,12 +9,15 @@ class Solution {
             map.put(par, map.getOrDefault(par,0) + 1);
         }
 
-        //!
-        for(String person : completion){
-            map.put(person, map.getOrDefault(person,0) -1);
+        for(String par : map.keySet()){
+            if(Arrays.asList(completion).contains(par)){
+                map.put(par, map.getOrDefault(par,0) -1);
+            }
+            else {
+                return par;
+            }
         }
         
-        //!
         for(String par : map.keySet()){
             if(map.get(par)!=0){
                 return par;
